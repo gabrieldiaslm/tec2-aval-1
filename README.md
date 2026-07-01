@@ -33,4 +33,6 @@ npm run db:init
 npm run db:down
 ```
 
-## Decisions
+## To do
+Add more info to README 
+Add diagram pdf file

@@ -6,8 +6,11 @@ export class PgTravelRequestRepository implements TravelRequestRepository {
   private pool: Pool;
 
   constructor() {
+    // Provide a default local connection string if the environment variable is missing during tests
+    const connectionString = process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/travel_requests";
+    
     this.pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
+      connectionString,
     });
   }
 
