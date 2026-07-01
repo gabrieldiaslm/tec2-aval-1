@@ -36,7 +36,7 @@ describe('ProcessTravelRequestUseCase Application Service', () => {
     // Verify if the repository save method was called exactly once
     expect(mockRepository.save).toHaveBeenCalledTimes(1);
     
-    // Verify if the repository save method was called with the correct Domain output
-    expect(mockRepository.save).toHaveBeenCalledWith(result);
+    // Verify if the repository save method was called with both Input and Output
+    expect(mockRepository.save).toHaveBeenCalledWith(input, result);
   });
 });
