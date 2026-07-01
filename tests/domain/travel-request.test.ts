@@ -116,7 +116,7 @@ describe('TravelRequest Domain - Rigorous Edge Cases & Boundaries', () => {
       destination: "",
       departureDate: "",
       returnDate: ""
-    } as TravelRequestInput;
+    } as unknown as TravelRequestInput;
     const request = new TravelRequest(input);
     const result = request.analyze();
     

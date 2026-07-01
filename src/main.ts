@@ -6,7 +6,12 @@ import {
   TravelStatus   // Adicionando por precaução
 } from './domain/travel-request';
 import { PgTravelRequestRepository } from './infra/pg-travel-request-repository';
-export { TravelRequestInput, TravelRequestOutput, RequesterType, TravelStatus };
+export { 
+  TravelRequestInput, 
+  TravelRequestOutput, 
+  RequesterType, 
+  TravelStatus as TravelRequestStatus
+};
 const repository = new PgTravelRequestRepository();
 export function processTravelRequest(input: TravelRequestInput): TravelRequestOutput {
   const request = new TravelRequest(input);
