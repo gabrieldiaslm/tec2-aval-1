@@ -79,19 +79,46 @@ export class TravelRequest {
     if (!this.input.returnDate) this.errors.push("returnDate is required");
   }
 
-  private validateDates(): void {
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+private validateDates(): void {
+    // Helper function to validate both string format and real calendar validity
+    const isFormatValid = (dateStr: string | undefined): boolean => {
+      if (!dateStr) return false;
 
-    const isValidDeparture = dateRegex.test(this.input.departureDate ?? "");
-    const isValidReturn = dateRegex.test(this.input.returnDate ?? "");
+      // 1. Checks exact structural format YYYY-MM-DD
+      const regex = /^\d{4}-\d{2}-\d{2}$/;
+      if (!regex.test(dateStr)) return false;
 
-    if (!isValidDeparture && this.input.departureDate) {
-      this.errors.push("departureDate must be a valid YYYY-MM-DD date");
+      // 2. Checks if it's a mathematically valid date 
+      const date = new Date(dateStr);
+      if (isNaN(date.getTime())) return false;
+
+      // 3. Ensures JS didn't silently roll over an invalid day (e.g., Feb 30 -> Mar 2)
+      // The ISO string returns UTC, so splitting by 'T' gives the exact parsed YYYY-MM-DD
+      if (date.toISOString().split('T')[0] !== dateStr) return false;
+
+      return true;
+    };
+
+    let isValidDeparture = false;
+    let isValidReturn = false;
+
+    // Only validate format if the field is present 
+    // (missing fields are already handled by validateRequiredFields)
+    if (this.input.departureDate) {
+      isValidDeparture = isFormatValid(this.input.departureDate);
+      if (!isValidDeparture) {
+        this.errors.push("departureDate must be a valid YYYY-MM-DD date");
+      }
     }
-    if (!isValidReturn && this.input.returnDate) {
-      this.errors.push("returnDate must be a valid YYYY-MM-DD date");
+
+    if (this.input.returnDate) {
+      isValidReturn = isFormatValid(this.input.returnDate);
+      if (!isValidReturn) {
+        this.errors.push("returnDate must be a valid YYYY-MM-DD date");
+      }
     }
 
+    // Validates if the return date is before the departure date
     if (isValidDeparture && isValidReturn) {
       if (new Date(this.input.returnDate) < new Date(this.input.departureDate)) {
         this.errors.push("returnDate cannot be before departureDate");

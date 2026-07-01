@@ -1,27 +1,13 @@
-export type RequesterType = "student" | "employee" | "professor" | "manager";
+import { TravelRequestInput, TravelRequestOutput, TravelRequest } from './domain/travel-request';
+import { PgTravelRequestRepository } from './infra/pg-travel-request-repository';
+export { TravelRequestInput, TravelRequestOutput };
+const repository = new PgTravelRequestRepository();
 
-export type TravelRequestStatus = "approved" | "pending-review" | "rejected";
-
-export type TravelRequestInput = {
-  requestId: string;
-  requesterName: string;
-  requesterType: RequesterType;
-  destination: string;
-  departureDate: string;
-  returnDate: string;
-  reason: string;
-  transportCostInCents: number;
-};
-
-export type TravelRequestOutput = {
-  requestId: string;
-  status: TravelRequestStatus;
-  travelDays: number;
-  dailyAmountInCents: number;
-  subtotalInCents: number;
-  totalAmountInCents: number;
-  errors: string[];
-  warnings: string[];
-};
-
-export { processTravelRequest } from "./original/process-travel-request.js";
+export function processTravelRequest(input: TravelRequestInput): TravelRequestOutput {
+  const request = new TravelRequest(input);
+  const output = request.analyze();
+  repository.save(input, output).catch(error => {
+    console.error("Failed to persist travel request in background:", error);
+  });
+  return output;
+}
