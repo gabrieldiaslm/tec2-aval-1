@@ -1,5 +1,3 @@
-// src/application/process-travel-request-use-case.ts
-
 import { TravelRequest, TravelRequestInput, TravelRequestOutput } from '../domain/travel-request';
 import { TravelRequestRepository } from './travel-request-repository';
 
@@ -14,7 +12,6 @@ export class ProcessTravelRequestUseCase {
     const travelRequest = new TravelRequest(input);
     const output = travelRequest.analyze();
 
-    // Correção aqui: Passando o input e o output para o repositório
     await this.repository.save(input, output);
 
     return output;

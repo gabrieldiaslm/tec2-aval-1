@@ -1,5 +1,3 @@
-// tests/infra/pg-travel-request-repository.test.ts
-
 import { expect, test, describe, beforeAll, afterAll } from 'vitest';
 import { PgTravelRequestRepository } from '../../src/infra/pg-travel-request-repository';
 import { TravelRequestInput, TravelRequestOutput } from '../../src/domain/travel-request';
@@ -26,7 +24,7 @@ describe('PgTravelRequestRepository Rigorous Integration Tests', () => {
   test('should insert a new travel request successfully', async () => {
     const input: TravelRequestInput = {
       requestId: "req-infra-rigorous-001",
-      requesterName: "Eyder Rios",
+      requesterName: "Marco Polo",
       requesterType: "professor",
       destination: "Parnaíba",
       departureDate: "2026-08-01",
@@ -61,7 +59,7 @@ describe('PgTravelRequestRepository Rigorous Integration Tests', () => {
     // Re-using the same ID from the previous test to trigger ON CONFLICT
     const updatedInput: TravelRequestInput = {
       requestId: "req-infra-rigorous-001", // Exact same ID
-      requesterName: "Eyder Rios",
+      requesterName: "Marco Polo",
       requesterType: "professor",
       destination: "Parnaíba",
       departureDate: "2026-08-01",

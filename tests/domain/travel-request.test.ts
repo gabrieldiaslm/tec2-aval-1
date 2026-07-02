@@ -1,5 +1,3 @@
-// tests/domain/travel-request.test.ts
-
 import { expect, test, describe } from 'vitest';
 import { TravelRequest, TravelRequestInput } from '../../src/domain/travel-request';
 
@@ -9,7 +7,7 @@ describe('TravelRequest Domain - Rigorous Edge Cases & Boundaries', () => {
   test('should approve exactly 5 travel days (boundary)', () => {
     const input: TravelRequestInput = {
       requestId: "edge-001",
-      requesterName: "Eyder Rios",
+      requesterName: "Marco Polo",
       requesterType: "student",
       destination: "Parnaíba",
       departureDate: "2026-07-01",

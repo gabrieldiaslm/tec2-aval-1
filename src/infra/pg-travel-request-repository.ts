@@ -14,15 +14,9 @@ export class PgTravelRequestRepository implements TravelRequestRepository {
     });
   }
 
-  // The interface in Phase 3 must be updated to receive the Input as well, 
-  // since the database schema requires fields like requester_name and destination.
   public async save(input: TravelRequestInput, output: TravelRequestOutput): Promise<void> {
     
-    // We don't save rejected requests if there are validation errors,
-    // or you could choose to save them depending on the business rule.
-    // Assuming we save all attempts:
-    
-    const createdAt = new Date().toISOString(); // Generating the required created_at field
+    const createdAt = new Date().toISOString();
 
     const query = `
       INSERT INTO travel_requests (
@@ -50,13 +44,13 @@ export class PgTravelRequestRepository implements TravelRequestRepository {
     `;
 
     const values = [
-      output.requestId, // maps to 'id'
+      output.requestId, 
       input.requesterName,
       input.requesterType,
       input.destination,
       input.departureDate,
       input.returnDate,
-      input.reason || "", // handles potential missing reason
+      input.reason || "", 
       output.status,
       output.travelDays,
       output.dailyAmountInCents,

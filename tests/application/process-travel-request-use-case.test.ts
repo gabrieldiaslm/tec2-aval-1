@@ -1,5 +1,3 @@
-// tests/application/process-travel-request-use-case.test.ts
-
 import { expect, test, describe, vi, beforeEach } from 'vitest';
 import { ProcessTravelRequestUseCase } from '../../src/application/process-travel-request-use-case';
 import { TravelRequestRepository } from '../../src/application/travel-request-repository';
@@ -21,7 +19,7 @@ describe('ProcessTravelRequestUseCase - Rigorous Application Tests', () => {
   test('should orchestrate a successful travel request and call repository with input and output', async () => {
     const input: TravelRequestInput = {
       requestId: "app-rigorous-001",
-      requesterName: "Eyder Rios",
+      requesterName: "Marco Polo",
       requesterType: "student",
       destination: "Parnaíba",
       departureDate: "2026-07-01",
@@ -66,7 +64,7 @@ describe('ProcessTravelRequestUseCase - Rigorous Application Tests', () => {
   test('should bubble up infrastructure exceptions if the repository fails', async () => {
     const input: TravelRequestInput = {
       requestId: "app-rigorous-003",
-      requesterName: "Eyder Rios",
+      requesterName: "Marco Polo",
       requesterType: "student",
       destination: "Parnaíba",
       departureDate: "2026-07-01",

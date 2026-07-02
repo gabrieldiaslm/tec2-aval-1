@@ -68,8 +68,6 @@ export class TravelRequest {
     };
   }
 
-  // --- Private Methods ---
-
   private validateRequiredFields(): void {
     if (!this.input.requestId) this.errors.push("requestId is required");
     if (!this.input.requesterName) this.errors.push("requesterName is required");
